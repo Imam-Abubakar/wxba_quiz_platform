@@ -35,13 +35,13 @@ const SliderItem = (props) => (
               <p className="sub-heading">{props.item.description}</p>
               <div className="button-slider">
                 <Link
-                  to="/collection"
+                  to="/scoreboard"
                   className="sc-button btn-bordered-white style letter "
                 >
                   <span>View Scoreboard</span>
                 </Link>
                 <Link
-                  to="/marketplace"
+                  to="/wxba-test"
                   className="sc-button btn-bordered-white extra-btnx style file"
                 >
                   <span>Take Test</span>
