@@ -1,13 +1,14 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
+import { isAuth } from '../../../helper/Auth'
 
 const Score = () => {
   const [data, setData] = useState(null)
-  console.log(data)
+  const auth = isAuth?.isTestCompleted
 
   useEffect(() => {
     axios 
-    .get(`https://5000-imamabubaka-wxbaquizser-1vf7zqmyxta.ws-eu75.gitpod.io/api/all-users`)
+    .get(`https://wxba-quiz-server.vercel.app/api/all-users`)
     .then((res) => {
       setData(res.data)
     })
@@ -26,17 +27,22 @@ const Score = () => {
               <div className="sc-heading">
                 <h3>WXBA Test Scoreboard</h3>
               </div>
-             
-              {
+              {auth === "false" ? 
+                <div className='h5'>
+                  Make sure to complete the test to be able to view the scoreboard
+                </div>
+                :
+                <>
+                  {
                 data !== null
                 ?
                 <>
                   {data?.map((user) => {
                     return(
                       
-                      <div className='text-center'>
+                      <div className='text-align-left'>
                          <hr />
-                      <h5><b>Address:</b> {user.address}</h5>
+                      <h5><b>Address:</b> {user.address.slice(0, 10)}...{user.address.slice(35)}</h5>
                       <h5><b>Test Score:</b> {user.testScore}</h5>
                       <h5><b>Date Taken:</b> {user.dateCompleted}</h5>
                     </div>
@@ -46,9 +52,9 @@ const Score = () => {
                 :
                 <div className='text-center'>Loading Data...</div>
               }
-              
+                </>  
+            }
             </div>
-           
           </div>
         </div>
       </div>

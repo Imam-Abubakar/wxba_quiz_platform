@@ -33,7 +33,7 @@ const Header = () => {
       if (address !== undefined) {
         const formData = {address }
         axios
-          .post(`https://5000-imamabubaka-wxbaquizser-1vf7zqmyxta.ws-eu75.gitpod.io/api/register`, formData)
+          .post(`https://wxba-quiz-server.vercel.app/api/register`, formData)
           .then((res) => {
             console.log(res.data)
             })
@@ -42,7 +42,7 @@ const Header = () => {
           })
   
           axios
-          .post(`https://5000-imamabubaka-wxbaquizser-1vf7zqmyxta.ws-eu75.gitpod.io/api/login`, formData)
+          .post(`https://wxba-quiz-server.vercel.app/api/login`, formData)
           .then((res) => {
             authenticate(res);
             })
