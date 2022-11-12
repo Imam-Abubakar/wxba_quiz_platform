@@ -7,12 +7,18 @@ const menus = [
   },
   {
     id: 2,
+    name: "Test",
+    links: "/wxba-test",
+    namesub: []
+  },
+  {
+    id: 3,
     name: "Scoreboard",
     links: "/scoreboard",
     namesub: []
   },
   {
-    id: 3,
+    id: 4,
     name: "Back to WXB",
     links: "https://workxiebillionaire.xyz",
     namesub: []

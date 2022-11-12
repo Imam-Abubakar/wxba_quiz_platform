@@ -6,6 +6,8 @@ import logolight from "../../assets/images/logo/logo.png";
 import logolight2x from "../../assets/images/logo/logo@2x.png";
 import menus from "../../pages/menu";
 import DarkMode from "./DarkMode";
+import axios from "axios";
+import { authenticate, isAuth } from "../../helper/Auth";
 
 import { ChainId, useChainId, useNetwork, useNetworkMismatch, useAddress, useMetamask } from "@thirdweb-dev/react";
 
@@ -19,6 +21,7 @@ const Header = () => {
   const headerRef = useRef(null);
   const [, switchNetwork] = useNetwork(); // Switch to desired chain
   const isMismatched = useNetworkMismatch(); // Detect if user is connected to the wrong network
+  const auth = isAuth()?._id;
 
   useEffect(() => {
     // Check if the user is connected to the wrong network
@@ -26,6 +29,29 @@ const Header = () => {
       // Prompt their MetaMask wallet to switch networks
       switchNetwork(ChainId.Goerli); // the chain you want here
     }
+    if (!auth) {
+      if (address !== undefined) {
+        const formData = {address }
+        axios
+          .post(`https://5000-imamabubaka-wxbaquizser-1vf7zqmyxta.ws-eu75.gitpod.io/api/register`, formData)
+          .then((res) => {
+            console.log(res.data)
+            })
+          .catch((err) => {
+            console.log(err);
+          })
+  
+          axios
+          .post(`https://5000-imamabubaka-wxbaquizser-1vf7zqmyxta.ws-eu75.gitpod.io/api/login`, formData)
+          .then((res) => {
+            authenticate(res);
+            })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    }
+    
   }, [address]);
   
 

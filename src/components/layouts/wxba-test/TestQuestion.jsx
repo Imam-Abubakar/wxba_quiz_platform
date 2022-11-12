@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './style.css'
-import { Button } from "react-bootstrap";
+import { isAuth, setLocalStorage } from '../../../helper/Auth';
+import axios from 'axios';
 
 export default function TestQuestion() {
   const questions = [
@@ -82,37 +83,60 @@ export default function TestQuestion() {
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [start, setStart] = useState(false)
+  const [hoursMinSecs, setHoursMinSecs] = useState({ hours: 0, minutes: 10, seconds: 7 })
+  const auth = isAuth()?.isTestCompleted
+  const scoreTest = isAuth()?.testScore
 
-  const hoursMinSecs = {hours:0, minutes: 0, seconds: 7}
+  const isTestCompleted = "true";
+  const testScore = score;
+
   const { hours = 0, minutes = 0, seconds = 0 } = hoursMinSecs;
   const [[hrs, mins, secs], setTime] = useState([hours, minutes, seconds]);
-  
+  const date = new Date();
+  const dateCompleted = date.toLocaleDateString()
 
+  const postData = {
+    testScore,
+    isTestCompleted,
+    dateCompleted
+  }
+
+    if (showScore === true) {
+        postData._id = isAuth()?._id;
+        axios
+          .put(`https://5000-imamabubaka-wxbaquizser-1vf7zqmyxta.ws-eu75.gitpod.io/api/user/update`, postData)
+          .then((res) => {
+            setLocalStorage('user', res.data);
+            window.location.reload()
+          })
+          .catch((err) => {
+            console.log(err)
+          });
+    }
+  
   const tick = () => {
-      if (hrs === 0 && mins === 0 && secs === 0) 
-          setShowScore(true)
-      else if (mins === 0 && secs === 0) {
-          setTime([hrs - 1, 59, 59]);
-      } else if (secs === 0) {
-          setTime([hrs, mins - 1, 59]);
-      } else {
-          setTime([hrs, mins, secs - 1]);
-      }
+    if (hrs === 0 && mins === 0 && secs === 0) {
+      setShowScore(true)
+    } else if (mins === 0 && secs === 0) {
+      setTime([hrs - 1, 59, 59]);
+    } else if (secs === 0) {
+      setTime([hrs, mins - 1, 59]);
+    } else {
+      setTime([hrs, mins, secs - 1]);
+    }
   };
 
   const reset = () => setTime([parseInt(hours), parseInt(minutes), parseInt(seconds)]);
-  
+
   useEffect(() => {
-      const timerId = setInterval(() => tick(), 1000);
-      return () => clearInterval(timerId);
+    const timerId = setInterval(() => tick(), 1000);
+    return () => clearInterval(timerId);
   });
 
   const handleAnswerOptionClick = (isCorrect) => {
     if (isCorrect) {
       setScore(score + 1);
     }
-
-    
 
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
@@ -134,52 +158,62 @@ export default function TestQuestion() {
         <div className="row">
           <div className="col-md-12">
             <div className="form-create-item-content">
-              {start ?
-                <>
-                {showScore ? (
-                  <div className="form-create-item">
+              {auth !== "false" ?
+                <div className="form-create-item">
                   <div className='score-section text-center'>
-                    You scored {score} out of {questions.length}
+                    You have successfully completed the test
+                    <br/>You Scored {scoreTest}/20
                   </div>
-                  </div>
-                ) : (
-                  <div className="form-create-item">
-                    <div className="sc-heading">
-                      <h3><span>Question {currentQuestion + 1}</span>/{questions.length}</h3>
-                      <p className="desc">{questions[currentQuestion].questionText}</p>
-                      <div className='timer-text'>
-          <p className='timer-item'>{`${hrs.toString().padStart(2, '0')}:${mins
-          .toString()
-          .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`}</p>
-      </div>
+                </div>
+                :
+                <>
+                  {start ?
+                    <>
+                      {showScore ? (
+                        <div className="form-create-item">
+                          <div className='score-section text-center'>
+                            You scored {score} out of {questions.length}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="form-create-item">
+                          <div className="sc-heading">
+                            <h3><span>Question {currentQuestion + 1}</span>/{questions.length}</h3>
+                            <p className="desc">{questions[currentQuestion].questionText}</p>
+                            <div className='timer-text'>
+                              <p className='timer-item'>{`${hrs.toString().padStart(2, '0')}:${mins
+                                .toString()
+                                .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`}</p>
+                            </div>
+                          </div>
+                          <div className='answer-section'>
+                            {questions[currentQuestion].answerOptions.map((answerOption) => (
+                              <button onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                    :
+                    <div className="form-create-item">
+                      <div className='score-section text-center'>
+                        Click the button below to start
+                      </div>
+                      <div className='text-center mt-2'>
+                        <button className="sc-button style letter style-2 " onClick={startTest}>
+                          Start Test
+                        </button>
+                      </div>
+
                     </div>
-                    <div className='answer-section'>
-                      {questions[currentQuestion].answerOptions.map((answerOption) => (
-                        <button onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                  }
                 </>
-              :
-              <div className="form-create-item">
-                <div className='score-section text-center'>
-                    Click the button below to start
-                  </div>
-                  <div className='text-center mt-2'>
-                  <button className="sc-button style letter style-2 " onClick={startTest}>
-                Start Test
-              </button>
-                  </div>
-             
-              </div>
               }
-              
+
             </div>
           </div>
         </div>
       </div>
     </section>
-
   );
 }
