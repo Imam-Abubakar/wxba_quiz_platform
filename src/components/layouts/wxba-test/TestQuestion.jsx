@@ -181,25 +181,7 @@ export default function TestQuestion() {
         { answerText: 'The ability to reproduce or sell the original work', isCorrect: false },
       ],
     },
-    /*
-      
-
-
-
-15. C
-
-16. A
-
-17. C
-
-18. D
-
-19. A
-
-20. C
-
-
-    */
+   
   ];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
