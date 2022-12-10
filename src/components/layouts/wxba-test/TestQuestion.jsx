@@ -187,6 +187,8 @@ export default function TestQuestion() {
   const auth = isAuth()?.isTestCompleted
   const scoreTest = isAuth()?.testScoreB
 
+  console.log(scoreTest)
+
   const isTestCompleted = "true";
   const testScoreB = score;
 
@@ -258,7 +260,7 @@ export default function TestQuestion() {
         <div className="row">
           <div className="col-md-12">
             <div className="form-create-item-content">
-              {auth !== "false" ?
+              {scoreTest !== undefined ?
                 <div className="form-create-item">
                   <div className='score-section text-center'>
                     You have successfully completed the test

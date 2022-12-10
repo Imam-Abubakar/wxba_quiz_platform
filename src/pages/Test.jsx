@@ -67,7 +67,7 @@ const Test = () => {
                     </div>
               ) : (
                 <>
-                  {balance.length === 0 ?
+                  {balance.length !== 0 ?
                     <div>
                       <section className="tf-section login-page">
                         <div className="container">
