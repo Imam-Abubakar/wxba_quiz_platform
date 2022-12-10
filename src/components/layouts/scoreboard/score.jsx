@@ -8,7 +8,7 @@ const Score = () => {
 
   useEffect(() => {
     axios 
-    .get(`https://5000-imamabubaka-wxbaquizser-kt1qah62bvm.ws-eu78.gitpod.io/api/all-users`)
+    .get(`https://wxba-quiz-server.vercel.app/api/all-users`)
     .then((res) => {
       setData(res.data)
       console.log(res.data)

@@ -204,7 +204,7 @@ export default function TestQuestion() {
     if (showScore === true) {
         postData._id = isAuth()?._id;
         axios
-          .put(`https://5000-imamabubaka-wxbaquizser-kt1qah62bvm.ws-eu78.gitpod.io/api/user/update`, postData)
+          .put(`https://wxba-quiz-server.vercel.app/api/user/update`, postData)
           .then((res) => {
             setLocalStorage('user', res.data);
             window.location.reload()
