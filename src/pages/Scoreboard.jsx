@@ -41,7 +41,7 @@ const Scoreboard = () => {
             <>
                 {address ? (
                     <>
-                        {auth === "true" ?
+                        {auth === "false" ?
                             <div>
                                 <section className="tf-section login-page">
                                     <div className="container">

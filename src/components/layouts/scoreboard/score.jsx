@@ -8,9 +8,10 @@ const Score = () => {
 
   useEffect(() => {
     axios 
-    .get(`https://wxba-quiz-server.vercel.app/api/all-users`)
+    .get(`https://5000-imamabubaka-wxbaquizser-kt1qah62bvm.ws-eu78.gitpod.io/api/all-users`)
     .then((res) => {
       setData(res.data)
+      console.log(res.data)
     })
     .catch((err) => {
       console.log(err)
@@ -43,8 +44,8 @@ const Score = () => {
                       <div className='text-align-left'>
                          <hr />
                       <h5><b>Address:</b> {user.address.slice(0, 10)}...{user.address.slice(35)}</h5>
-                      <h5><b>Test Score:</b> {user.testScore}</h5>
-                      <h5><b>Date Taken:</b> {user.dateCompleted}</h5>
+                      <h5><b>WXBA Initial Test Score ({user.dateCompleted || "Not Taken"}): </b>{user.testScore || "Test Not Taken"}</h5>
+                      <h5><b>DeFi Assessment Score ({user.dateCompleted || "Not Taken"}):  </b> {user.testScoreB || "Not Completed"}</h5>
                     </div>
                     )
                   })}
