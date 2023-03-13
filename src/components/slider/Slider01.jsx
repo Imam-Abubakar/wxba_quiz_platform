@@ -41,7 +41,7 @@ const SliderItem = (props) => (
                   <span>View Scoreboard</span>
                 </Link>
                 <Link
-                  to="/wxba-test"
+                  to="/page-test"
                   className="sc-button btn-bordered-white extra-btnx style file"
                 >
                   <span>Take Test</span>

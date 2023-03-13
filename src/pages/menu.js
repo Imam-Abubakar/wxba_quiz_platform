@@ -8,7 +8,7 @@ const menus = [
   {
     id: 2,
     name: "Test",
-    links: "/wxba-test",
+    links: "/page-test",
     namesub: []
   },
   {

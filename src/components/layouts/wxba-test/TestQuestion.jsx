@@ -284,22 +284,22 @@ export default function TestQuestion() {
   const [start, setStart] = useState(false)
   const [hoursMinSecs, setHoursMinSecs] = useState({ hours: 0, minutes: 10, seconds: 7 })
   const auth = isAuth()?.isTestCompleted
-  const scoreTest = isAuth()?.testScoreC
+  const scoreTest = isAuth()?.testScore
 
   console.log(scoreTest)
 
   const isTestCompleted = "true";
-  const testScoreC = score;
+  const testScore = score;
 
   const { hours = 0, minutes = 0, seconds = 0 } = hoursMinSecs;
   const [[hrs, mins, secs], setTime] = useState([hours, minutes, seconds]);
   const date = new Date();
-  const dateCompletedC = date.toLocaleDateString()
+  const dateCompleted = date.toLocaleDateString()
 
   const postData = {
-    testScoreC,
+    testScore,
     isTestCompleted,
-    dateCompletedC
+    dateCompleted
   }
 
     if (showScore === true) {

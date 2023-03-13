@@ -44,9 +44,7 @@ const Score = () => {
                       <div className='text-align-left'>
                          <hr />
                       <h5><b>Address:</b> {user.address.slice(0, 10)}...{user.address.slice(35)}</h5>
-                      <h5><b>WXBA Initial Test Score ({user?.dateCompleted || "Not Taken"}): </b>{user.testScore || "Test Not Taken"}</h5>
-                      <h5><b>DeFi Assessment Score ({user?.dateCompletedB|| "Not Taken"}):  </b> {user.testScoreB || "Not Completed"}</h5>
-                      <h5><b>Blockchain Assessment Score ({user?.dateCompletedC || "Not Taken"}):  </b> {user.testScoreC || "Not Completed"}</h5>
+                      <h5><b>WXBA Test Score ({user?.dateCompleted || "Not Taken"}): </b> {user?.testScore == undefined ? '0/30' : `${user.testScore}/30`} || {"Test Not Taken"}</h5>
                     </div>
                     )
                   })}

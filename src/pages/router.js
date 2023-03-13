@@ -4,7 +4,7 @@ import Scoreboard from "./Scoreboard";
 
 const routes = [
   { path: "/", component: <Home01 /> },
-  { path: "/wxba-test", component: <Test /> },
+  { path: "/page-test", component: <Test /> },
   { path: "/scoreboard", component: <Scoreboard /> }, 
 ];
 
