@@ -23,37 +23,44 @@ const Header = () => {
   const isMismatched = useNetworkMismatch(); // Detect if user is connected to the wrong network
   const auth = isAuth()?._id;
 
+  const register = () => {
+    const formData = { address }
+    axios
+      .post(`https://wxba-quiz-server.vercel.app/api/register`, formData)
+      .then((res) => {
+        console.log(res.data)
+        login();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const login = () => {
+    const formData = { address }
+    axios
+      .post(`https://wxba-quiz-server.vercel.app/api/login`, formData)
+      .then((res) => {
+        authenticate(res);
+      })
+      .catch((err) => {
+        register();
+      })
+  }
+
   useEffect(() => {
-    // Check if the user is connected to the wrong network
     if (isMismatched) {
-      // Prompt their MetaMask wallet to switch networks
-      switchNetwork(ChainId.Goerli); // the chain you want here
+      switchNetwork(ChainId.Mainnet);
     }
+
     if (!auth) {
       if (address !== undefined) {
-        const formData = {address }
-        axios
-          .post(`https://wxba-quiz-server.vercel.app/api/register`, formData)
-          .then((res) => {
-            console.log(res.data)
-            })
-          .catch((err) => {
-            console.log(err);
-          })
-  
-          axios
-          .post(`https://wxba-quiz-server.vercel.app/api/login`, formData)
-          .then((res) => {
-            authenticate(res);
-            })
-          .catch((err) => {
-            console.log(err);
-          })
+        login();
       }
     }
-    
+
   }, [address]);
-  
+
 
   useEffect(() => {
     window.addEventListener("scroll", isSticky);
@@ -133,6 +140,27 @@ const Header = () => {
                         <a href={data.links}>{data.name}</a>
                       </li>
                     ))}
+                    <li>
+                      <a
+                        href="#"
+                      >
+                        Test
+                      </a>
+                      <ul className="sub-menu" >
+                        <li className={
+                          pathname === '/web3-test'
+                            ? "menu-item current-item"
+                            : "menu-item"
+                        }><Link to='/web3-test'>Web3 Assessment</Link></li>
+                        <li className={
+                          pathname === '/forex-test'
+                            ? "menu-item current-item"
+                            : "menu-item"
+                        }><Link to='/forex-test'>Forex Assessment</Link></li>
+                      </ul>
+                    </li>
+
+                    <li><a href="https://workxiebillionaire.xyz">Back to WXB</a></li>
 
                   </ul>
                 </nav>

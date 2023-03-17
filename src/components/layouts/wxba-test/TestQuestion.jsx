@@ -283,29 +283,26 @@ export default function TestQuestion() {
   const [score, setScore] = useState(0);
   const [start, setStart] = useState(false)
   const [hoursMinSecs, setHoursMinSecs] = useState({ hours: 0, minutes: 10, seconds: 7 })
-  const auth = isAuth()?.isTestCompleted
-  const scoreTest = isAuth()?.testScore
+  const scoreTest = isAuth()?.web3Assessment
 
-  console.log(scoreTest)
-
-  const isTestCompleted = "true";
-  const testScore = score;
+  const isWeb3TestCompleted = "true";
+  const web3Assessment = score;
 
   const { hours = 0, minutes = 0, seconds = 0 } = hoursMinSecs;
   const [[hrs, mins, secs], setTime] = useState([hours, minutes, seconds]);
   const date = new Date();
-  const dateCompleted = date.toLocaleDateString()
+  const dateCompletedWeb3 = date.toLocaleDateString()
 
   const postData = {
-    testScore,
-    isTestCompleted,
-    dateCompleted
+    web3Assessment,
+    isWeb3TestCompleted,
+    dateCompletedWeb3,
   }
 
     if (showScore === true) {
         postData._id = isAuth()?._id;
         axios
-          .put(`https://wxba-quiz-server.vercel.app/api/user/update`, postData)
+          .put(`https://wxba-quiz-server.vercel.app/api/user/update/web3`, postData)
           .then((res) => {
             setLocalStorage('user', res.data);
             window.location.reload()

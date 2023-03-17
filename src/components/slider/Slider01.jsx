@@ -41,10 +41,10 @@ const SliderItem = (props) => (
                   <span>View Scoreboard</span>
                 </Link>
                 <Link
-                  to="/page-test"
+                  to="/forex-test"
                   className="sc-button btn-bordered-white extra-btnx style file"
                 >
-                  <span>Take Test</span>
+                  <span>Forex Assessment</span>
                 </Link>
               </div>
             </div>
